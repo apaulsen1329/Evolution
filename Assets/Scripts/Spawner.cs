@@ -10,9 +10,9 @@ public class Spawner : MonoBehaviour {
     public Transform agentFab;
     public GameObject foodFab;
     public TextMeshProUGUI generation;
+    public int genCount = 1;
     public float speedDelta = 1f; // the amount of change in speed each generation can mutate by
     public float senseDelta = 1f; // the amount of change in sense distance each generation can mutate by
-    public float sizeDelta = 1f; // the amount of change in size each generation can mutate by
     // Start is called before the first frame update
     void Start() {
         setGenerationText();
@@ -48,7 +48,7 @@ public class Spawner : MonoBehaviour {
     }
 
     private void setGenerationText() {
-        //GenText.text = "Generation: ";
+        generation.text = "Generation: " + genCount;
     }
 
     // Update is called once per frame
@@ -56,6 +56,9 @@ public class Spawner : MonoBehaviour {
         if (Input.GetKeyDown(KeyCode.Space)) {
             // Debug.Log("Space Pressed");
             // When the spacebar is pressed, the generation goes up
+
+            genCount += 1;
+            setGenerationText();
 
             //Find all agents with 2 or more meals
             var allAgents = FindObjectsOfType<AgentControl>();
@@ -77,10 +80,10 @@ public class Spawner : MonoBehaviour {
                     newAgent.agent.speed = newSpeed;
                     newAgent.senseDistance = newSense;
                     // update scale
-                    //var newSize = agent.transform.localScale += new Vector3(-sizeDelta, sizeDelta);
-                    //newAgent.transform.localScale = newSize;
-                    //if (newSize < 0) newSize = 0;
+                    newAgent.transform.localScale *= Random.Range(0.8f, 1.5f);
                     // update color
+                    // Material newMat = Resources.Load("Agents " + genCount % 8 + 1, typeof(Material)) as Material;
+                    // newAgent.agent.getComponent(MeshRenderer).Material[0] = newMat;
                 }
                 agent.meals = 0;
             }

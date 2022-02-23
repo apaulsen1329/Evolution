@@ -43,8 +43,8 @@ public class AgentControl : MonoBehaviour {
         } else {
              if (wandering == true) {
                 //They have a chance to change direction
-                var chance = Random.Range(1, 100);
-                if (chance < 2) {
+                var chance = Random.Range(1.0f, 100.0f);
+                if (chance < 1.5f) {
                     agent.SetDestination(randPosition(1));
                 }
             }
@@ -54,7 +54,7 @@ public class AgentControl : MonoBehaviour {
             }
 
             //Update Stamina
-            stamina -= 0.01f;
+            stamina -= 0.1f;
         }
         if (meals >= 1 && stamina < 50f) {
             goHome();
